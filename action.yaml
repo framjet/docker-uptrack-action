@@ -1,0 +1,64 @@
+# https://help.github.com/en/articles/metadata-syntax-for-github-actions
+name: 'Docker Upstream Image Tracker action'
+description: "GitHub Action to track the upstream docker image"
+author: 'aurimasniekis'
+branding:
+  icon: 'anchor'
+  color: 'blue'
+
+inputs:
+  context:
+    description: 'Where to get context data. Allowed options are "git"  (default), "workflow".'
+    default: "git"
+    required: true
+
+  rev-provider:
+    description: 'Revision provider to use. Allowed options are "git" (default), "config" (Uses folder hash + config.related instead of git rev).'
+    default: "git"
+    required: true
+
+  force:
+    description: 'Force the action to run even if the image is up to date.'
+    default: false
+    required: false
+
+  config:
+    description: "The path to the configuration file"
+    required: true
+    default: "./uptrack.json"
+
+  username:
+    description: "The username to use for the registry"
+    required: true
+
+  password:
+    description: "The password to use for the registry"
+    required: true
+
+  label-prefix:
+    description: "The prefix to use for labels"
+    required: true
+    default: "org.framjet.uptrack."
+
+  sep-tags:
+    description: 'Separator to use for tags output (default \n)'
+    required: false
+  sep-labels:
+    description: 'Separator to use for labels output (default \n)'
+    required: false
+  sep-build-args:
+    description: 'Separator to use for build args output (default \n)'
+    required: false
+
+  github-token:
+    description: 'GitHub Token as provided by secrets'
+    default: ${{ github.token }}
+    required: true
+
+outputs:
+  matrix:
+    description: 'The matrix of tags and labels in JSON format'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

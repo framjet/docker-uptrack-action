@@ -1,0 +1,117 @@
+{
+  "$schema": "https://github.com/framjet/docker-uptrack-action/blob/main/schema.json",
+  "variants": [
+    {
+      "namespace": "framjet",
+      "name": "php",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "upstream": {
+        "name": "php"
+      },
+      "filters": {
+        "page_limit": 5,
+        "tags": [
+          {
+            "name": "fpm-alpine",
+            "mapped": "latest"
+          },
+          {
+            "pattern": "^(\\d\\.\\d+|\\d)-fpm-alpine$",
+            "mapped": "$1"
+          }
+        ]
+      },
+      "buildArgs": {
+        "COMPOSER_VERSION": "latest"
+      },
+      "buildTarget": "base"
+    },
+    {
+      "namespace": "framjet",
+      "name": "php",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "upstream": {
+        "name": "php"
+      },
+      "filters": {
+        "page_limit": 5,
+        "tags": [
+          {
+            "name": "fpm-alpine",
+            "mapped": "latest-dev"
+          },
+          {
+            "pattern": "^(\\d\\.\\d+|\\d)-fpm-alpine$",
+            "mapped": "$1-dev"
+          }
+        ]
+      },
+      "buildArgs": {
+        "COMPOSER_VERSION": "latest"
+      },
+      "buildTarget": "dev"
+    },
+    {
+      "namespace": "framjet",
+      "name": "php",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "upstream": {
+        "name": "php"
+      },
+      "filters": {
+        "page_limit": 5,
+        "tags": [
+          {
+            "name": "fpm-alpine",
+            "mapped": "latest-dev-shell"
+          },
+          {
+            "pattern": "^(\\d\\.\\d+|\\d)-fpm-alpine$",
+            "mapped": "$1-dev-shell"
+          }
+        ]
+      },
+      "buildArgs": {
+        "COMPOSER_VERSION": "latest"
+      },
+      "buildTarget": "dev-shell"
+    },
+    {
+      "namespace": "framjet",
+      "name": "php",
+      "platforms": [
+        "linux/amd64",
+        "linux/arm64"
+      ],
+      "upstream": {
+        "name": "php"
+      },
+      "filters": {
+        "page_limit": 5,
+        "tags": [
+          {
+            "name": "fpm-alpine",
+            "mapped": "latest-prod"
+          },
+          {
+            "pattern": "^(\\d\\.\\d+|\\d)-fpm-alpine$",
+            "mapped": "$1-prod"
+          }
+        ]
+      },
+      "buildArgs": {
+        "COMPOSER_VERSION": "latest"
+      },
+      "buildTarget": "prod"
+    }
+  ]
+}

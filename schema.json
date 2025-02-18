@@ -1,0 +1,280 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "platforms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "uniqueItems": true
+          },
+          "upstream": {
+            "type": "object",
+            "properties": {
+              "namespace": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": ["name"],
+            "additionalProperties": false
+          },
+          "filters": {
+            "$ref": "#/$defs/Filters"
+          },
+          "buildArgs": {
+            "$ref": "#/$defs/RecordValueOrExpression"
+          },
+          "labels": {
+            "$ref": "#/$defs/RecordValueOrExpression"
+          },
+          "extraTags": {
+            "$ref": "#/$defs/ArrayValueOrExpression"
+          },
+          "include": {
+            "type": "array",
+            "description": "List of files/folders to include in the built revision hash when using `rev-provider: config`",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "buildTarget": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "platforms", "upstream"],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["variants"],
+  "additionalProperties": false,
+  "$defs": {
+    "ValueOrExpression": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "expression": {
+              "type": "string"
+            }
+          },
+          "required": ["expression"],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "RecordValueOrExpression": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/ValueOrExpression"
+      }
+    },
+    "ArrayValueOrExpression": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ValueOrExpression"
+      }
+    },
+    "TagName": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": ["name"],
+      "additionalProperties": false
+    },
+    "TagNameMapped": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "mapped": {
+          "type": "string"
+        },
+        "extraBuildArgs": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraLabels": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraTags": {
+          "$ref": "#/$defs/ArrayValueOrExpression"
+        },
+        "buildTarget": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "mapped"],
+      "additionalProperties": false
+    },
+    "TagNameExpression": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "expression": {
+          "type": "string"
+        },
+        "extraBuildArgs": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraLabels": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraTags": {
+          "$ref": "#/$defs/ArrayValueOrExpression"
+        },
+        "buildTarget": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "expression"],
+      "additionalProperties": false
+    },
+    "TagPattern": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string"
+        },
+        "extraBuildArgs": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraLabels": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraTags": {
+          "$ref": "#/$defs/ArrayValueOrExpression"
+        },
+        "buildTarget": {
+          "type": "string"
+        }
+      },
+      "required": ["pattern"],
+      "additionalProperties": false
+    },
+    "TagPatternMapped": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string"
+        },
+        "mapped": {
+          "type": "string"
+        },
+        "extraBuildArgs": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraLabels": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraTags": {
+          "$ref": "#/$defs/ArrayValueOrExpression"
+        },
+        "buildTarget": {
+          "type": "string"
+        }
+      },
+      "required": ["pattern", "mapped"],
+      "additionalProperties": false
+    },
+    "TagPatternExpression": {
+      "type": "object",
+      "properties": {
+        "pattern": {
+          "type": "string"
+        },
+        "expression": {
+          "type": "string"
+        },
+        "extraBuildArgs": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraLabels": {
+          "$ref": "#/$defs/RecordValueOrExpression"
+        },
+        "extraTags": {
+          "$ref": "#/$defs/ArrayValueOrExpression"
+        },
+        "buildTarget": {
+          "type": "string"
+        }
+      },
+      "required": ["pattern", "expression"],
+      "additionalProperties": false
+    },
+    "TagFilter": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TagName"
+        },
+        {
+          "$ref": "#/$defs/TagNameMapped"
+        },
+        {
+          "$ref": "#/$defs/TagNameExpression"
+        },
+        {
+          "$ref": "#/$defs/TagPattern"
+        },
+        {
+          "$ref": "#/$defs/TagPatternMapped"
+        },
+        {
+          "$ref": "#/$defs/TagPatternExpression"
+        },
+        {
+          "type": "string"
+        }
+      ]
+    },
+    "Filters": {
+      "type": "object",
+      "properties": {
+        "oldest_tag_limit": {
+          "type": "string"
+        },
+        "limit_releases": {
+          "type": "integer",
+          "exclusiveMinimum": 0
+        },
+        "page_limit": {
+          "type": "integer",
+          "exclusiveMinimum": 0,
+          "description": "Limit the number of pages of tags x 100 to fetch from the registry"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TagFilter"
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}
