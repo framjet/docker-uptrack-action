@@ -37,7 +37,7 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/github": "^6.0.0",
-    "@docker/actions-toolkit": "^0.54.0",
+    "@docker/actions-toolkit": "^0.55.0",
     "jexl": "^2.3.0",
     "jsonpath": "^1.1.1",
     "lru-cache": "^11.0.2",
